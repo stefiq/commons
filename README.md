@@ -14,11 +14,9 @@ For example, `InputStreams` doesn't define an `ENVIRONMENT_VARIABLE` (a valid in
 
 ## Setup
 
-1. Make sure you have set up the repositories and Python environment according to the [top-level instructions](https://github.com/open-crs#requirements).
-   That is:
+1. Make sure you have set up the repositories and Python environment according to the [top-level instructions](https://github.com/open-crs#requirements). That is:
 
-   - Docker is installed and is properly running.
-     Check using:
+   * Docker is installed and is properly running. Check using:
 
      ```console
      docker version
@@ -28,35 +26,27 @@ For example, `InputStreams` doesn't define an `ENVIRONMENT_VARIABLE` (a valid in
 
      These commands should run without errors.
 
-   - The current repository and the [`commons` repository](https://github.com/open-crs/commons) are cloned (with submodules) in the same directory.
+   * The current repository and the [`commons` repository](https://github.com/open-crs/commons) are cloned (with submodules) in the same directory.
 
-   - You are running all commands inside a Python virtual environment.
-     There should be `(.venv)` prefix to your prompt.
-
-   - You have installed Poetry in the virtual environment.
-     If you run:
+   * uv is installed. Check using:
 
      ```console
-     which poetry
+     uv --version
      ```
 
-     you should get a path ending with `.venv/bin/poetry`.
-
-1. Disable the Python Keyring:
+2. Create the virtual environment:
 
    ```console
-   export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring
+   uv venv
    ```
 
-   This is a problem that may occur in certain situations, preventing Poetry from getting packages.
-
-1. Install the required packages with Poetry (based on `pyprojects.toml`):
+3. Install the required packages based on `pyproject.toml`:
 
    ```console
-   poetry install --only main
+   uv sync
    ```
 
-1. Build the [Ghidra](https://ghidra-sre.org/) and [QBDI](https://github.com/QBDI/QBDI) Docker images used by other modules:
+4. Build the [Ghidra](https://ghidra-sre.org/) and [QBDI](https://github.com/QBDI/QBDI) Docker images used by other modules:
 
    ```console
    docker build --tag ghidra -f commons/ghidra/docker/Dockerfile commons/ghidra/docker
